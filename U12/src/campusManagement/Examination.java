@@ -2,6 +2,7 @@ package campusManagement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -211,7 +212,8 @@ public class Examination {
 	 * @return
 	 */
 	public Map<Double, Integer> getDistributionOfGrades(){
-		
-		return null;
+		Map<Double, Integer> NV = new HashMap<Double, Integer>();
+		grades.stream().forEach(a -> NV.put(a.getGrade(), NV.get(a) + 1));
+		return NV;
 	}
 }
