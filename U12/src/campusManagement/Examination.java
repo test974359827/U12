@@ -1,7 +1,12 @@
 package campusManagement;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Class represents a examination in our management system
@@ -150,5 +155,63 @@ public class Examination {
 		return sb.toString();
 	}
 
-
+	/**
+	 * liefert ein Filter-Prädikat zurück, das alle Prüfungsnoten
+	 * mit der übergebenen Note selektiert.
+	 * 
+	 * @param grade
+	 * @return
+	 */
+	public Predicate<ExaminationGrade> filterGradesByGrade(double grade){
+		return (ExmGrd -> ExmGrd.getGrade() == grade);
+	}
+	
+	/**
+	 * liefert ein Filter-Prädikat zurück, das alle Prüfungsnoten 
+	 * mit dem übergebenen Student selektiert.
+	 * 
+	 * @param student
+	 * @return
+	 */
+	public Predicate<ExaminationGrade> filterGradesByStudent(Student student){
+		return (ExmGrd -> ExmGrd.getStudent() == student);
+	}
+	
+	/**
+	 * 	bekommt ein Filter-Prädikat übergeben und liefert alle
+	 *  Prüfungsnoten der Prüfung in einer java.util.List zurück,
+	 *  die der Filter nicht aussortiert hat.
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	public List<ExaminationGrade> getFilteredGrades(Predicate<ExaminationGrade> filter){
+		return grades.stream().filter(filter).collect(Collectors.toList());
+	}
+	
+	/**
+	 * liefert den Durchschnitt aller Noten der Prüfung zurück
+	 * 
+	 * @return
+	 */
+	public double getAverageGrade(){
+		return grades.stream().mapToDouble(a -> a.getGrade()).average().getAsDouble();
+	}
+	
+	
+	/**
+	 * liefert die Notenverteilung in Form einer HashMap zurück.
+	 * Die Keys der HashMap entsprechen der Note und die Values
+	 * der HashMap, die entsprechende Anzahl der Häufigkeit 
+	 * der Note. Gibt es bei  einer Prüfung beispielsweise 
+	 * 3x1.0 , 2x4.0 sowie 5x2.3, so sollte die HashMap 
+	 * folgendermaßen aussehen, wenn man die toString() 
+	 * Methode verwendet um Sie zu visualisieren: {1.0=3, 4.0=2, 2.3=5}.
+	 *  
+	 * @return
+	 */
+	public Map<Double, Integer> getDistributionOfGrades(){
+		
+		return null;
+	}
 }
