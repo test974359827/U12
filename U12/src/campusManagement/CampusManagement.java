@@ -2,6 +2,8 @@ package campusManagement;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Class represents a campus management system
@@ -142,4 +144,141 @@ public class CampusManagement {
 		student.getGrades().add(examinationGrade);
 		examination.getGrades().add(examinationGrade);
 	}
+	
+	
+	
+	
+	/**
+	 * liefert ein Filter-
+	 * Prädikat zurück, das alle Studenten mit dem übergebenen Vor- und Nachname selektiert.
+	 * Groß- und Kleinschreibung soll dabei ignoriert werden
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @return
+	 */
+	public Predicate<Student> filterStudentsByName(String firstName, String lastName){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * liefert ein Filter-
+	 * Prädikat zurück, das alle Studenten mit der übergebenen Matrikelnummer selektiert
+	 * 
+	 * @param matriculationNumber
+	 * @return
+	 */
+	public Predicate<Student> filterStudentsByMatriculationNumber(int matriculationNumber){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * 	liefert ein Filter-Prädikat zurück, das alle Studenten mit dem übergebenen 
+	 * Studiengang selektiert. Groß- undKleinschreibung soll dabei ignoriert werden.
+	 * 
+	 * @param courseOfStudies
+	 * @return
+	 */
+	public Predicate<Student> filterStudentsByCourseOfStudies(String courseOfStudies){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * bekommt ein Filter-Prädikat übergeben und liefert alle im System
+	 *  registrierten Studenten in einer java.util.List zurück, die der 
+	 *  Filter nicht aussortiert hat.
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	public List<Student> getFilteredStudents(Predicate<Student> filter){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * liefert ein Filter-Prädikat zurück,das alle Prüfungen mit dem 
+	 * übergebenen Name selektiert. Groß- und Kleinschreibungsoll 
+	 * dabei ignoriert werden.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Predicate<Examination> filterExaminationsByName(String name){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * liefert ein Filter-Prädikat zurück das alle Prüfungen
+	 *  mit der übergebenen Anzahl an Credit Points selektiert.
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	public Predicate<Examination> filterExaminationsByCreditPoints(int cp){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * liefert ein Filter-Prädikat zurück, das alle Prüfungen die 
+	 * in dem übergebenen Semester stattfinden selektiert.
+	 * 
+	 * @param semester
+	 * @return
+	 */
+	public Predicate<Examination> filterExaminationsBySemester(Semester semester){
+		//TODO
+		return null;
+	}
+	
+	/**
+	 * bekommt ein Filter-Prädikat übergeben und liefert alle im System 
+	 * registrierten Prüfungen in einer java.util.Listzurück, die der Filter 
+	 * nicht aussortiert hat.
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	public List<Examination> getFilteredExaminations(Predicate<Examination> filter){
+		//TODO
+		return null;
+	}
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
