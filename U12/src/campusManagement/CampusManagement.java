@@ -4,11 +4,16 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 /**
  * Class represents a campus management system
  * 
  * @author Lukas Roehrig
+ * @author Shayan   Davari Fard
  */
 public class CampusManagement {
 
@@ -145,9 +150,6 @@ public class CampusManagement {
 		examination.getGrades().add(examinationGrade);
 	}
 	
-	
-	
-	
 	/**
 	 * liefert ein Filter-
 	 * Prädikat zurück, das alle Studenten mit dem übergebenen Vor- und Nachname selektiert.
@@ -158,8 +160,8 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Student> filterStudentsByName(String firstName, String lastName){
-		//TODO
-		return null;
+		return (std -> std.getFirstName().toLowerCase().equals(firstName.toLowerCase()) && 
+				std.getLastName().toLowerCase().equals(lastName.toLowerCase()));
 	}
 	
 	/**
@@ -170,8 +172,7 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Student> filterStudentsByMatriculationNumber(int matriculationNumber){
-		//TODO
-		return null;
+		return (std -> std.getMatriculationNumber() == matriculationNumber);
 	}
 	
 	/**
@@ -182,21 +183,19 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Student> filterStudentsByCourseOfStudies(String courseOfStudies){
-		//TODO
-		return null;
+		return (std -> std.getCourseOfStudies().toLowerCase().equals(courseOfStudies.toLowerCase()));
 	}
 	
 	/**
 	 * bekommt ein Filter-Prädikat übergeben und liefert alle im System
-	 *  registrierten Studenten in einer java.util.List zurück, die der 
-	 *  Filter nicht aussortiert hat.
+	 * registrierten Studenten in einer java.util.List zurück, die der 
+	 * Filter nicht aussortiert hat.
 	 * 
 	 * @param filter
 	 * @return
 	 */
-	public List<Student> getFilteredStudents(Predicate<Student> filter){
-		//TODO
-		return null;
+	public List<Student> getFilteredStudents(Predicate<Student> filter){ 
+		return students.stream().filter(filter).collect(Collectors.toList()); // AGHA alan bas negatiov ina biad ya hamina ? 
 	}
 	
 	/**
@@ -208,8 +207,7 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Examination> filterExaminationsByName(String name){
-		//TODO
-		return null;
+		return (exm -> exm.getName().toLowerCase().equals(name.toLowerCase()));
 	}
 	
 	/**
@@ -220,8 +218,7 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Examination> filterExaminationsByCreditPoints(int cp){
-		//TODO
-		return null;
+		return (exm -> exm.getCreditPoints() == cp);
 	}
 	
 	/**
@@ -232,8 +229,7 @@ public class CampusManagement {
 	 * @return
 	 */
 	public Predicate<Examination> filterExaminationsBySemester(Semester semester){
-		//TODO
-		return null;
+		return (exm -> exm.getSemester().equals(semester));
 	}
 	
 	/**
@@ -245,40 +241,6 @@ public class CampusManagement {
 	 * @return
 	 */
 	public List<Examination> getFilteredExaminations(Predicate<Examination> filter){
-		//TODO
-		return null;
+		return examinations.stream().filter(filter).collect(Collectors.toList()); // AGHA alan bas negatiov ina biad ya hamina ?
 	}
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
