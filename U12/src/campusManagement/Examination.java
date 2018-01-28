@@ -2,11 +2,14 @@ package campusManagement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -213,6 +216,7 @@ public class Examination {
 	 */
 	public Map<Double, Integer> getDistributionOfGrades(){
 		Map<Double, Integer> NV = new HashMap<Double, Integer>();
+		grades.stream().forEach(a -> NV.put(a.getGrade(), 0));
 		grades.stream().forEach(a -> NV.put(a.getGrade(), NV.get(a) + 1));
 		return NV;
 	}

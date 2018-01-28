@@ -1,8 +1,11 @@
 package campusManagement;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.List;
+import org.junit.*;
 import org.junit.BeforeClass;
 
 public class TestStudentStream {
@@ -71,5 +74,177 @@ public class TestStudentStream {
 		management.registerStudentForExamination(annaWilliams, math1);
 		management.addExaminationGradeForStudent(1.0, annaWilliams, math1);
 	}
+	
+	
+	@Test
+	public void Test_getFilteredStudents_filterStudentsByName(){
+		List<Student> stdList = management.getFilteredStudents(management.filterStudentsByName("John","Doe"));
+		assertEquals(1,stdList.size());
+		assertEquals("John",stdList.get(0).getFirstName());
+		assertEquals("Doe",stdList.get(0).getLastName());
+		assertEquals(11111,stdList.get(0).getMatriculationNumber());
+		assertEquals("Computer Science B.Sc.",stdList.get(0).getCourseOfStudies());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByName("TAYLOR","smith"));
+		assertEquals(1,stdList.size());
+		assertEquals("Taylor",stdList.get(0).getFirstName());
+		assertEquals("Smith",stdList.get(0).getLastName());
+		assertEquals(33333,stdList.get(0).getMatriculationNumber());
+		assertEquals("Computer Science B.Sc.",stdList.get(0).getCourseOfStudies());
+		assertEquals("Student: 33333 - Taylor Smith",stdList.get(0).toString());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByName("Shayan","smith"));
+		assertEquals(0,stdList.size());
+	}
+	
+	@Test
+	public void Test_getFilteredStudents_filterStudentsByMatriculationNumber(){
+		List<Student> stdList = management.getFilteredStudents(management.filterStudentsByMatriculationNumber(22222));
+		assertEquals("Student: 22222 - Peter Clark",stdList.get(0).toString());
+		assertEquals(1,stdList.size());
+		assertEquals("Peter",stdList.get(0).getFirstName());
+		assertEquals("Clark",stdList.get(0).getLastName());
+		assertEquals(22222,stdList.get(0).getMatriculationNumber());
+		assertEquals("Computer Science B.Ed.",stdList.get(0).getCourseOfStudies());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByMatriculationNumber(12446));
+		assertEquals(0,stdList.size());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByMatriculationNumber(33333));
+		assertEquals(1,stdList.size());
+		assertEquals("Taylor",stdList.get(0).getFirstName());
+		assertEquals("Smith",stdList.get(0).getLastName());
+		assertEquals(33333,stdList.get(0).getMatriculationNumber());
+		assertEquals("Computer Science B.Sc.",stdList.get(0).getCourseOfStudies());
+		assertEquals("Student: 33333 - Taylor Smith",stdList.get(0).toString());
+	}
+	
+	@Test
+	public void Test_getFilteredStudents_filterStudentsByCourseOfStudies(){
+		List<Student> stdList = management.getFilteredStudents(management.filterStudentsByCourseOfStudies("COMPUTER science B.ED."));
+		assertEquals("Student: 22222 - Peter Clark",stdList.get(0).toString());
+		assertEquals(1,stdList.size());
+		assertEquals("Peter",stdList.get(0).getFirstName());
+		assertEquals("Clark",stdList.get(0).getLastName());
+		assertEquals(22222,stdList.get(0).getMatriculationNumber());
+		assertEquals("Computer Science B.Ed.",stdList.get(0).getCourseOfStudies());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByCourseOfStudies(" Informatik :) "));
+		assertEquals(0,stdList.size());
+		
+		stdList =  management.getFilteredStudents(management.filterStudentsByCourseOfStudies("ComputeR Science B.Sc."));
+		assertEquals(3,stdList.size());
+		assertEquals("Student: 11111 - John Doe",stdList.get(0).toString());
+		assertEquals("Student: 33333 - Taylor Smith",stdList.get(1).toString());
+		assertEquals("Student: 44444 - Anna Williams",stdList.get(2).toString());
+	}
+	
+	@Test
+	public void Test_getFilteredExaminations_filterExaminationsByName(){
+		List<Examination> exmList = 
+				management.getFilteredExaminations(management.filterExaminationsByName
+						("Functional and Object-oriented Programming Concepts "));
+		assertEquals(1,exmList.size());
+		assertEquals("Functional and Object-oriented Programming Concepts ",exmList.get(0).getName());
+		assertEquals(10,exmList.get(0).getCreditPoints());
+		assertEquals(0,exmList.get(0).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(0).getSemester().toString());
+		assertEquals("2018-04-02T13:30",exmList.get(0).getDateBegin().toString());
+		assertEquals("2018-04-02T15:00",exmList.get(0).getDateEnd().toString());
+	
+		exmList =  management.getFilteredExaminations(management.filterExaminationsByName("Digital Technik"));
+		assertEquals(0,exmList.size());
+		
+		exmList =  management.getFilteredExaminations(management.filterExaminationsByName("VISual Computing"));
+		assertEquals(1,exmList.size());
+		assertEquals("Visual Computing",exmList.get(0).getName());
+		assertEquals(5,exmList.get(0).getCreditPoints());
+		assertEquals(0,exmList.get(0).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(0).getSemester().toString());
+		assertEquals("2018-03-01T09:00",exmList.get(0).getDateBegin().toString());
+		assertEquals("2018-03-01T11:30",exmList.get(0).getDateEnd().toString());
+		}
+	
+	@Test
+	public void Test_getFilteredExaminations_filterExaminationsByCreditPoints(){
+		List<Examination> exmList = 
+				management.getFilteredExaminations(management.filterExaminationsByCreditPoints(5));
+		assertEquals(3,exmList.size());
+		assertEquals("Visual Computing",exmList.get(0).getName());
+		assertEquals("Computer Security",exmList.get(1).getName());
+		assertEquals("Software Engineering",exmList.get(2).getName());
+		assertEquals(5,exmList.get(1).getCreditPoints());
+		assertEquals(3,exmList.get(2).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(1).getSemester().toString());
+		assertEquals("SoSe_17",exmList.get(2).getSemester().toString());
 
+		exmList =  management.getFilteredExaminations(management.filterExaminationsByCreditPoints(8));
+		assertEquals(0,exmList.size());
+		
+		exmList =  management.getFilteredExaminations(management.filterExaminationsByCreditPoints(9));
+		assertEquals(2,exmList.size());
+		assertEquals("Mathematics I",exmList.get(0).getName());
+		assertEquals("Mathematics II",exmList.get(1).getName());
+		assertEquals(9,exmList.get(0).getCreditPoints());
+		assertEquals(4,exmList.get(0).getStudentsRegistered().size());
+		assertEquals(3,exmList.get(1).getStudentsRegistered().size());
+		assertEquals("WiSe_16_17",exmList.get(1).getSemester().toString());
+		assertEquals("SoSe_17",exmList.get(0).getSemester().toString());
+
+	}
+	
+	@Test
+	public void Test_getFilteredExaminations_filterExaminationsBySemester(){
+		List<Examination> exmList = 
+				management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.WiSe_17_18));
+
+		assertEquals(3,exmList.size());
+		assertEquals("Visual Computing",exmList.get(0).getName());
+		assertEquals(5,exmList.get(0).getCreditPoints());
+		assertEquals(0,exmList.get(0).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(0).getSemester().toString());
+		assertEquals("2018-03-01T09:00",exmList.get(0).getDateBegin().toString());
+		assertEquals("2018-03-01T11:30",exmList.get(0).getDateEnd().toString());
+		
+		assertEquals("Functional and Object-oriented Programming Concepts ",exmList.get(1).getName());
+		assertEquals(10,exmList.get(1).getCreditPoints());
+		assertEquals(0,exmList.get(1).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(1).getSemester().toString());
+		assertEquals("2018-04-02T13:30",exmList.get(1).getDateBegin().toString());
+		assertEquals("2018-04-02T15:00",exmList.get(1).getDateEnd().toString());		
+		
+		assertEquals("Computer Security",exmList.get(2).getName());
+		assertEquals(5,exmList.get(2).getCreditPoints());
+		assertEquals(0,exmList.get(2).getStudentsRegistered().size());
+		assertEquals("WiSe_17_18",exmList.get(2).getSemester().toString());
+
+		exmList =  management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.SoSe_16));
+		assertEquals(0,exmList.size());
+		
+		exmList =  management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.WiSe_16_17));
+		assertEquals(1,exmList.size());
+		assertEquals("Mathematics II",exmList.get(0).getName());
+		assertEquals(3,exmList.get(0).getStudentsRegistered().size());
+		assertEquals("WiSe_16_17",exmList.get(0).getSemester().toString());
+	}
+	
+	@Test
+	public void Test_getFilteredGrades_filterGradesByGrade(){
+		
+	}
+	
+	@Test
+	public void Test_getFilteredGrades_filterGradesByStudent(){
+		
+	}
+	
+	@Test
+	public void getAverageGrade(){
+		
+	}
+	
+	@Test
+	public void getDistributionOfGrades(){
+		
+	}
 }
