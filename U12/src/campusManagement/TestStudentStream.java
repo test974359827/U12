@@ -230,21 +230,48 @@ public class TestStudentStream {
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByGrade(){
-		
+		//TODO
 	}
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByStudent(){
-		
+		//TODO
 	}
 	
 	@Test
 	public void getAverageGrade(){
+		Examination exm = management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.WiSe_16_17)).get(0);
+		
+		List<ExaminationGrade> ExmGrList = exm.getGrades();
+		
+		assertEquals(3,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals(new Double(3.7),new Double(ExmGrList.get(1).getGrade()));
+		assertEquals(new Double(1.7),new Double(ExmGrList.get(2).getGrade()));
+		
+		assertEquals(new Double(7.4/3),new Double(exm.getAverageGrade()));
+
+		ExmGrList = se.getGrades();
+		assertEquals(3,ExmGrList.size());
+		assertEquals(new Double(2),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals(new Double(1.7),new Double(ExmGrList.get(1).getGrade()));
+		assertEquals(new Double(2),new Double(ExmGrList.get(2).getGrade()));
+		
+		assertEquals(new Double(5.7/3),new Double(se.getAverageGrade()));
+
 		
 	}
 	
 	@Test
 	public void getDistributionOfGrades(){
-		
+		//TODO
+//		List<ExaminationGrade> exmList = se.getGrades();
+//		exmList.addAll(math1.getGrades());
+//		exmList.addAll(math2.getGrades());
+//		assertEquals(3 + 3 + 4 ,exmList.size());
+//		System.out.println(math1.getDistributionOfGrades());
+//		assertEquals( ,se.getDistributionOfGrades());
+
+
 	}
 }
