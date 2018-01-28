@@ -13,7 +13,12 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
  * Class represents a campus management system
  * 
  * @author Lukas Roehrig
- * @author Shayan   Davari Fard
+ * 
+ * @author      	 Shayan     Davari fard
+ * @author    Mohammadrahim     Masoumi
+ * @author       	  Arian     Tashakkornojehdehi
+ * 
+ * @version 1
  */
 public class CampusManagement {
 

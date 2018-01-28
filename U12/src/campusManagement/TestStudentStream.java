@@ -4,10 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.*;
 import org.junit.BeforeClass;
-
+/**
+* @author      		 Shayan     Davari fard
+* @author     Mohammadrahim     Masoumi
+* @author       	  Arian     Tashakkornojehdehi
+* 
+* @version 1
+*/
 public class TestStudentStream {
 	static double epsilon = 0.0001;
 
@@ -258,20 +267,33 @@ public class TestStudentStream {
 		assertEquals(new Double(2),new Double(ExmGrList.get(2).getGrade()));
 		
 		assertEquals(new Double(5.7/3),new Double(se.getAverageGrade()));
-
-		
 	}
 	
 	@Test
 	public void getDistributionOfGrades(){
-		//TODO
-//		List<ExaminationGrade> exmList = se.getGrades();
-//		exmList.addAll(math1.getGrades());
-//		exmList.addAll(math2.getGrades());
-//		assertEquals(3 + 3 + 4 ,exmList.size());
-//		System.out.println(math1.getDistributionOfGrades());
-//		assertEquals( ,se.getDistributionOfGrades());
+		Map<Double, Integer> NV = new HashMap<Double, Integer>();
+		
+		NV = se.getDistributionOfGrades();
+		assertEquals("{2.0=2, 1.7=1}",NV.toString());
+		assertEquals(2,NV.size());
+		assertEquals(new Integer(2),NV.get(2.0));
+		assertEquals(new Integer(1),NV.get(1.7));
 
-
+		NV = math1.getDistributionOfGrades();
+		assertEquals("{2.0=1, 4.0=1, 1.0=1, 1.3=1}",NV.toString());
+		assertEquals(4,NV.size());
+		assertEquals(new Integer(1),NV.get(2.0));
+		assertEquals(null,NV.get(1.7));
+		
+		NV = math2.getDistributionOfGrades();
+		assertEquals("{2.0=1, 3.7=1, 1.7=1}",NV.toString());
+		assertEquals(3,NV.size());
+		assertEquals(new Integer(1),NV.get(2.0));
+		assertEquals(new Integer(1),NV.get(1.7));
+		assertEquals(new Integer(1),NV.get(3.7));
+		
+		NV = fop.getDistributionOfGrades();
+		assertEquals(0,NV.size());
+		assertEquals(null,NV.get(1.7));
 	}
 }

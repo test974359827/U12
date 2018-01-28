@@ -12,10 +12,18 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  * Class represents a examination in our management system
  * 
  * @author Lukas Roehrig
+ * 
+ * @author      	 Shayan     Davari fard
+ * @author    Mohammadrahim     Masoumi
+ * @author       	  Arian     Tashakkornojehdehi
+ * 
+ * @version 1
  */
 public class Examination {
 
@@ -217,7 +225,7 @@ public class Examination {
 	public Map<Double, Integer> getDistributionOfGrades(){
 		Map<Double, Integer> NV = new HashMap<Double, Integer>();
 		grades.stream().forEach(a -> NV.put(a.getGrade(), 0));
-		grades.stream().forEach(a -> NV.put(a.getGrade(), NV.get(a) + 1));
+		grades.stream().forEach(a -> NV.put(a.getGrade(), NV.get(a.getGrade()) + 1));
 		return NV;
 	}
 }
