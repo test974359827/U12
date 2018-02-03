@@ -97,7 +97,7 @@ public class TestStudentStream {
 		stdList =  management.getFilteredStudents(management.filterStudentsByName("TAYLOR","smith"));
 		assertEquals(1,stdList.size());
 		assertEquals("Taylor",stdList.get(0).getFirstName());
-		assertEquals("Smith",stdList.get(0).getLastName());
+		assertEquals("Smith",stdList.get(0).getLastName());		
 		assertEquals(33333,stdList.get(0).getMatriculationNumber());
 		assertEquals("Computer Science B.Sc.",stdList.get(0).getCourseOfStudies());
 		assertEquals("Student: 33333 - Taylor Smith",stdList.get(0).toString());
@@ -239,12 +239,32 @@ public class TestStudentStream {
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByGrade(){
-		//TODO
+Examination exm = management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.WiSe_16_17)).get(0);
+		
+		List<ExaminationGrade> ExmGrList = exm.getGrades();
+//		assertEquals(3,ExmGrList.size());
+//		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+//		assertEquals(new Double(3.7),new Double(ExmGrList.get(1).getGrade()));
+//		assertEquals(new Double(1.7),new Double(ExmGrList.get(2).getGrade()));
+//		
+		//assertEquals(new Double(2.0),exm.filterGradesByGrade(2.0));
+		
 	}
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByStudent(){
-		//TODO
+		List<Student> stdList = management.getFilteredStudents(management.filterStudentsByName("John","Doe"));
+		assertEquals(1,stdList.size());		
+
+
+//		assertEquals(1,stdList.size());
+//		assertEquals(new Double(2.0),(stdList.get(0).getGrades()));
+//		assertEquals(new Double(2.0),(stdList.get(1).getGrades()));
+//		assertEquals(new Double(2.0),(stdList.get(2).getGrades()));
+
+		
+		//assertEquals(new Double(2.0),exm.filterGradesByGrade(2.0));
+
 	}
 	
 	@Test
