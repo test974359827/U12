@@ -239,31 +239,67 @@ public class TestStudentStream {
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByGrade(){
-Examination exm = management.getFilteredExaminations(management.filterExaminationsBySemester(Semester.WiSe_16_17)).get(0);
 		
-		List<ExaminationGrade> ExmGrList = exm.getGrades();
-//		assertEquals(3,ExmGrList.size());
-//		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
-//		assertEquals(new Double(3.7),new Double(ExmGrList.get(1).getGrade()));
-//		assertEquals(new Double(1.7),new Double(ExmGrList.get(2).getGrade()));
-//		
-		//assertEquals(new Double(2.0),exm.filterGradesByGrade(2.0));
+		List<ExaminationGrade> ExmGrList = math2.getFilteredGrades(math2.filterGradesByGrade(2.0));
+
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
+
+		ExmGrList = math1.getFilteredGrades(math1.filterGradesByGrade(2.0));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
+
+		ExmGrList = math1.getFilteredGrades(math1.filterGradesByGrade(1.3));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(1.3),new Double(ExmGrList.get(0).getGrade()));
+
 		
+		ExmGrList = se.getFilteredGrades(se.filterGradesByGrade(2.0));
+		assertEquals(2,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(1).getGrade()));
+		assertEquals("Taylor",ExmGrList.get(1).getStudent().getFirstName());
+
+		ExmGrList = se.getFilteredGrades(se.filterGradesByGrade(1.7));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(1.7),new Double(ExmGrList.get(0).getGrade()));
 	}
 	
 	@Test
 	public void Test_getFilteredGrades_filterGradesByStudent(){
-		List<Student> stdList = management.getFilteredStudents(management.filterStudentsByName("John","Doe"));
-		assertEquals(1,stdList.size());		
+		List<ExaminationGrade> ExmGrList = math2.getFilteredGrades(math2.filterGradesByStudent(johnDoe));
 
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
 
-//		assertEquals(1,stdList.size());
-//		assertEquals(new Double(2.0),(stdList.get(0).getGrades()));
-//		assertEquals(new Double(2.0),(stdList.get(1).getGrades()));
-//		assertEquals(new Double(2.0),(stdList.get(2).getGrades()));
+		ExmGrList = math1.getFilteredGrades(math1.filterGradesByStudent(johnDoe));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
+
+		ExmGrList = math1.getFilteredGrades(math1.filterGradesByStudent(taylorSmith));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(1.3),new Double(ExmGrList.get(0).getGrade()));
 
 		
-		//assertEquals(new Double(2.0),exm.filterGradesByGrade(2.0));
+		ExmGrList = se.getFilteredGrades(se.filterGradesByStudent(johnDoe));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		assertEquals("John",ExmGrList.get(0).getStudent().getFirstName());
+
+		ExmGrList = se.getFilteredGrades(se.filterGradesByStudent(taylorSmith));
+		assertEquals(1,ExmGrList.size());
+		assertEquals(new Double(2.0),new Double(ExmGrList.get(0).getGrade()));
+		
+		ExmGrList = fop.getFilteredGrades(fop.filterGradesByStudent(peterClark));
+		assertEquals(0,ExmGrList.size());
+
+		ExmGrList = cs.getFilteredGrades(cs.filterGradesByStudent(annaWilliams));
+		assertEquals(0,ExmGrList.size());
 
 	}
 	
